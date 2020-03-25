@@ -724,8 +724,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.024993896, y: -0.000030517578}
-  m_SizeDelta: {x: 0.049988, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &102478613
 MonoBehaviour:
@@ -11322,6 +11322,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1769124319515000, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1884102019447498, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: m_Name
       value: Jogador
@@ -11362,7 +11366,7 @@ PrefabInstance:
         type: 3}
       propertyPath: TextoGameOver
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1518546017}
     - target: {fileID: 114135333458066176, guid: 4b3bb44effa49480d8d18049684cc33a,
         type: 3}
       propertyPath: scriptControlaInterface
@@ -12028,7 +12032,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 219.5, y: 219.5}
+  m_SizeDelta: {x: 220, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1273524458
 MonoBehaviour:
@@ -12173,7 +12177,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 208.8, y: 208.8}
-  m_SizeDelta: {x: 417.7, y: 417.7}
+  m_SizeDelta: {x: 420, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1288273155
 MonoBehaviour:
@@ -12189,6 +12193,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BG: {fileID: 102478612}
   Stick: {fileID: 1273524457}
+  OnChangePosition:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1665214586}
+        m_MethodName: SetDirecao
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1289184558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14095,6 +14113,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1178924254}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1665214586 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114343259226597284, guid: 4b3bb44effa49480d8d18049684cc33a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1178924254}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665214584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123ba307a469ead4abbb7c73290738ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1665214593
 MonoBehaviour:
   m_ObjectHideFlags: 0
