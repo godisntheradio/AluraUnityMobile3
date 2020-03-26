@@ -6,7 +6,7 @@ public class ControlaArma : MonoBehaviour {
 
     public GameObject Bala;
     public GameObject CanoDaArma;
-    public AudioClip SomDoTiro;
+	public RandomSound Audio;
 	[SerializeField]
 	private ObjectPool Pool;
 
@@ -32,6 +32,6 @@ public class ControlaArma : MonoBehaviour {
 		gameObj.transform.position = CanoDaArma.transform.position;
 		gameObj.transform.rotation = CanoDaArma.transform.rotation;
 		gameObj.SetActive(true);
-		ControlaAudio.instancia.PlayOneShot(SomDoTiro);
+		Audio.Play();
 	}
 }

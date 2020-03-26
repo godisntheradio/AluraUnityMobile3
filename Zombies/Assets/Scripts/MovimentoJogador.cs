@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovimentoJogador : MovimentoPersonagem
 {
     [SerializeField]
-    private AudioSource audio;
+    private RandomSound audio;
     public void StepSound()
     {
         audio.Play();
@@ -13,12 +13,12 @@ public class MovimentoJogador : MovimentoPersonagem
     public void RotacaoJogador (LayerMask MascaraChao)
     {
        
-        
-        Vector3 posicaoMiraJogador = Direcao;
-
-        posicaoMiraJogador.y = transform.position.y;
-
-        Rotacionar(posicaoMiraJogador);
+        if (Direcao != Vector3.zero)
+        {
+            Vector3 posicaoMiraJogador = Direcao;
+            posicaoMiraJogador.y = transform.position.y;
+            Rotacionar(posicaoMiraJogador);
+        }
         
     }
 }
