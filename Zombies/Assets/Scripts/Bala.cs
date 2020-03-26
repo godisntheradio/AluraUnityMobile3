@@ -37,6 +37,6 @@ public class Bala : MonoBehaviour {
             break;
         }
 
-        Destroy(gameObject);
+        GetComponent<Poolable>().ReturnToPool();
     }
 }

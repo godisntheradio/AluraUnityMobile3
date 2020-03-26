@@ -7,6 +7,8 @@ public class ControlaArma : MonoBehaviour {
     public GameObject Bala;
     public GameObject CanoDaArma;
     public AudioClip SomDoTiro;
+	[SerializeField]
+	private ObjectPool Pool;
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +19,14 @@ public class ControlaArma : MonoBehaviour {
 	void Update () {
 		if(Input.GetButtonDown("Fire1"))
         {
-            Instantiate(Bala, CanoDaArma.transform.position, CanoDaArma.transform.rotation);
-            ControlaAudio.instancia.PlayOneShot(SomDoTiro);
+            //Instantiate(Bala, CanoDaArma.transform.position, CanoDaArma.transform.rotation);
+			GameObject gameObj = Pool.GetObjectFromPool();
+			if (gameObj == null)
+				return;
+			gameObj.transform.position = CanoDaArma.transform.position;
+			gameObj.transform.rotation = CanoDaArma.transform.rotation;
+			gameObj.SetActive(true);
+			ControlaAudio.instancia.PlayOneShot(SomDoTiro);
         }
 	}
 }

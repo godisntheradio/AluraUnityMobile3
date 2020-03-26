@@ -111,9 +111,8 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
         Instantiate(ParticulaSangueZumbi, posicao, rotacao);
     }
 
-    public void Morrer()
+    public IEnumerator Die()
     {
-        Destroy(gameObject, 2);
         animacaoInimigo.Morrer();
         movimentaInimigo.Morrer();
         this.enabled = false;
@@ -121,6 +120,8 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
         VerificarGeracaoKitMedico(porcentagemGerarKitMedico);
         scriptControlaInterface.AtualizarQuantidadeDeZumbisMortos();
         meuGerador.DiminuirQuantidadeDeZumbisVios();
+        yield return new WaitForSeconds(2);
+        GetComponent<Poolable>().ReturnToPool();
     }
 
     void VerificarGeracaoKitMedico(float porcentagemGeracao)
@@ -129,5 +130,10 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
         {
             Instantiate(KitMedicoPrefab, transform.position, Quaternion.identity);
         }
+    }
+
+    public void Morrer()
+    {
+        StartCoroutine(Die());
     }
 }

@@ -16,6 +16,8 @@ public class GeradorZumbis : MonoBehaviour {
     private float tempoProximoAumentoDeDificuldade = 30;
     private float contadorDeAumentarDificuldade;
 
+    [SerializeField]
+    private ObjectPool Pool;
     private void Start()
     {
         jogador = GameObject.FindWithTag("Jogador");
@@ -71,10 +73,18 @@ public class GeradorZumbis : MonoBehaviour {
             yield return null;
         }
 
-        ControlaInimigo zumbi = Instantiate(Zumbi, posicaoDeCriacao, transform.rotation)
-            .GetComponent<ControlaInimigo>();
-        zumbi.meuGerador = this;
-        quantidadeDeZumbisVivos++;
+        //ControlaInimigo zumbi = Instantiate(Zumbi, posicaoDeCriacao, transform.rotation)
+        //    .GetComponent<ControlaInimigo>();
+        GameObject gameObj = Pool.GetObjectFromPool();
+        if (gameObj != null)
+        {
+             ControlaInimigo zumbi = gameObj.GetComponent<ControlaInimigo>();
+            zumbi.meuGerador = this;
+            zumbi.gameObject.transform.position = posicaoDeCriacao;
+            zumbi.gameObject.transform.rotation = transform.rotation;
+            zumbi.gameObject.SetActive(true);
+            quantidadeDeZumbisVivos++;
+        }
     }
 
     Vector3 AleatorizarPosicao ()

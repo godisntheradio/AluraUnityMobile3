@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class AnalogStick : MonoBehaviour, IDragHandler
+public class AnalogStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
     [SerializeField]
     private RectTransform BG;
@@ -19,7 +19,6 @@ public class AnalogStick : MonoBehaviour, IDragHandler
         Vector2 mousePos = GetMousePosition(eventData);
         Vector2 clampedPos = GetClampedPos(mousePos);
         MoveStick(clampedPos);
-        Debug.Log(clampedPos);
     }
 
     private Vector2 GetClampedPos(Vector2 mousePos)
@@ -46,6 +45,16 @@ public class AnalogStick : MonoBehaviour, IDragHandler
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(BG, eventData.position, eventData.enterEventCamera, out pos);
         return pos; 
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        OnDrag(eventData);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        MoveStick(Vector2.zero);
     }
 }
 [Serializable]
