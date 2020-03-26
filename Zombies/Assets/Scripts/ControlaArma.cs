@@ -17,16 +17,21 @@ public class ControlaArma : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetButtonDown("Fire1"))
-        {
-            //Instantiate(Bala, CanoDaArma.transform.position, CanoDaArma.transform.rotation);
-			GameObject gameObj = Pool.GetObjectFromPool();
-			if (gameObj == null)
-				return;
-			gameObj.transform.position = CanoDaArma.transform.position;
-			gameObj.transform.rotation = CanoDaArma.transform.rotation;
-			gameObj.SetActive(true);
-			ControlaAudio.instancia.PlayOneShot(SomDoTiro);
-        }
+
+		foreach (Touch touch in Input.touches)
+		{
+			if (touch.phase == TouchPhase.Began)
+				Fire();
+		}
+	}
+	void Fire()
+	{
+		GameObject gameObj = Pool.GetObjectFromPool();
+		if (gameObj == null)
+			return;
+		gameObj.transform.position = CanoDaArma.transform.position;
+		gameObj.transform.rotation = CanoDaArma.transform.rotation;
+		gameObj.SetActive(true);
+		ControlaAudio.instancia.PlayOneShot(SomDoTiro);
 	}
 }
