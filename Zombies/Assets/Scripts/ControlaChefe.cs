@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class ControlaChefe : MonoBehaviour, IMatavel
+public class ControlaChefe : MonoBehaviour, IMatavel, IPoolable
 {
     private Transform jogador;
     private NavMeshAgent agente;
@@ -16,15 +16,18 @@ public class ControlaChefe : MonoBehaviour, IMatavel
     public Image ImagelSlider;
     public Color CorDaVidaMaxima, CorDaVidaMinima;
     public GameObject ParticulaSangueZumbi;
+    private void Awake()
+    {
+        animacaoChefe = GetComponent<AnimacaoPersonagem>();
+        movimentoChefe = GetComponent<MovimentoPersonagem>();
+        agente = GetComponent<NavMeshAgent>();
+        statusChefe = GetComponent<Status>();
+    }
 
     private void Start()
     {
         jogador = GameObject.FindWithTag("Jogador").transform;
-        agente = GetComponent<NavMeshAgent>();
-        statusChefe = GetComponent<Status>();
         agente.speed = statusChefe.Velocidade;
-        animacaoChefe = GetComponent<AnimacaoPersonagem>();
-        movimentoChefe = GetComponent<MovimentoPersonagem>();
         sliderVidaChefe.maxValue = statusChefe.VidaInicial;
         AtualizarInterface();
     }
@@ -74,12 +77,17 @@ public class ControlaChefe : MonoBehaviour, IMatavel
 
     public void Morrer()
     {
+        StartCoroutine(Die());
+    }
+    public IEnumerator Die()
+    {
         animacaoChefe.Morrer();
         movimentoChefe.Morrer();
         this.enabled = false;
         agente.enabled = false;
         Instantiate(KitMedicoPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject, 2);
+        yield return new WaitForSeconds(2);
+        GetComponent<Poolable>().ReturnToPool();
     }
 
     void AtualizarInterface ()
@@ -88,5 +96,23 @@ public class ControlaChefe : MonoBehaviour, IMatavel
         float porcentagemDaVida = (float)statusChefe.Vida / statusChefe.VidaInicial;
         Color corDaVida = Color.Lerp(CorDaVidaMinima, CorDaVidaMaxima, porcentagemDaVida);
         ImagelSlider.color = corDaVida;
+    }
+    public void SetPosition(Vector3 pos)
+    {
+        transform.position = pos;
+        agente.Warp(pos);
+    }
+    public void OnReturnToPool()
+    {
+    }
+
+    public void OnGetFromPool()
+    {
+        gameObject.SetActive(true);
+        movimentoChefe.Reiniciar();
+        this.enabled = true;
+        agente.enabled = true;
+        statusChefe.Reiniciar();
+        AtualizarInterface();
     }
 }

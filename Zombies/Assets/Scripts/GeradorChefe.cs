@@ -6,10 +6,12 @@ public class GeradorChefe : MonoBehaviour
 {
     private float tempoParaProximaGeracao = 0;
     public float tempoEntreGeracoes = 60;
-    public GameObject ChefePrefab;
     private ControlaInterface scriptControlaInteface;
     public Transform[] PosicoesPossiveisDeGeracao;
     private Transform jogador;
+
+    [SerializeField]
+    ObjectPool Pool;
 
     private void Start()
     {
@@ -23,7 +25,8 @@ public class GeradorChefe : MonoBehaviour
         if (Time.timeSinceLevelLoad > tempoParaProximaGeracao)
         {
             Vector3 posicaoDeCriacao = CalcularPosicaoMaisDistanteDoJogador();
-            Instantiate(ChefePrefab, posicaoDeCriacao, Quaternion.identity);
+            GameObject gameObject = Pool.GetObjectFromPool();
+            gameObject.GetComponent<ControlaChefe>().SetPosition(posicaoDeCriacao);            
             scriptControlaInteface.AparecerTextoChefeCriado();
             tempoParaProximaGeracao = Time.timeSinceLevelLoad + tempoEntreGeracoes;
         }

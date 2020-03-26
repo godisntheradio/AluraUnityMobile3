@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControlaInimigo : MonoBehaviour, IMatavel
+public class ControlaInimigo : MonoBehaviour, IMatavel, IPoolable
 {
 
     public GameObject Jogador;
@@ -21,13 +21,16 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     public GeradorZumbis meuGerador;
     public GameObject ParticulaSangueZumbi;
 
-	// Use this for initialization
-	void Start () {
-        Jogador = GameObject.FindWithTag("Jogador");
+    private void Awake()
+    {
         animacaoInimigo = GetComponent<AnimacaoPersonagem>();
         movimentaInimigo = GetComponent<MovimentoPersonagem>();
-        AleatorizarZumbi();
         statusInimigo = GetComponent<Status>();
+    }
+
+    void Start () {
+        Jogador = GameObject.FindWithTag("Jogador");
+        AleatorizarZumbi();
         scriptControlaInterface = GameObject.FindObjectOfType(typeof(ControlaInterface)) as ControlaInterface;
     }
 
@@ -135,5 +138,21 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     public void Morrer()
     {
         StartCoroutine(Die());
+    }
+    void Reiniciar()
+    {
+        GetComponent<ControlaInimigo>().enabled = true;
+        movimentaInimigo.Reiniciar();
+        statusInimigo.Reiniciar();
+    }
+
+    public void OnReturnToPool()
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnGetFromPool()
+    {
+        Reiniciar();
     }
 }

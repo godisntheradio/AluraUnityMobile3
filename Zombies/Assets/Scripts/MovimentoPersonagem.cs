@@ -46,4 +46,10 @@ public class MovimentoPersonagem : MonoBehaviour
         meuRigidbody.isKinematic = false;
         GetComponent<Collider>().enabled = false;
     }
+    public void Reiniciar()
+    {
+        meuRigidbody.isKinematic = false;
+        GetComponent<Collider>().enabled = true;
+    }
+
 }

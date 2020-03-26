@@ -73,8 +73,6 @@ public class GeradorZumbis : MonoBehaviour {
             yield return null;
         }
 
-        //ControlaInimigo zumbi = Instantiate(Zumbi, posicaoDeCriacao, transform.rotation)
-        //    .GetComponent<ControlaInimigo>();
         GameObject gameObj = Pool.GetObjectFromPool();
         if (gameObj != null)
         {

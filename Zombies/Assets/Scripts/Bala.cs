@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bala : MonoBehaviour {
+public class Bala : MonoBehaviour, IPoolable
+{
 
     public float Velocidade = 20;
     private Rigidbody rigidbodyBala;
@@ -38,5 +39,15 @@ public class Bala : MonoBehaviour {
         }
 
         GetComponent<Poolable>().ReturnToPool();
+    }
+
+    public void OnReturnToPool()
+    {
+        
+    }
+
+    public void OnGetFromPool()
+    {
+        
     }
 }
